@@ -1,8 +1,10 @@
-# WORDLE on The BLOCK
+# Wordle on the Block
+Wordle on the Block is a word game, chiefly inspired by the original wordle game that was built by Josh Wardle. In this online game, the user is able to play a daily round of Wordle and has the chance to proudly mint their result (may it be good or bad) on the Ethereum blockchain as an NFT. During this process, the user is asked to donate a small amount of Matic to a charity of their choosing to help a great cause.
 
-This project was built by Team Maxima ([Afoma](https://github.com/Afoma), [Rike](https://github.com/gitfrosh), [Kristen](https://github.com/cuddleofdeath), [Brenda](https://github.com/mejia-b) and [Ana](https://github.com/mspuz) ) during the 2022 [web3con hackathon](https://www.web3con.dev/hackathon).
+This fork/enhancements is generously supported by [Filecoin's Next Steps Microgrant](https://github.com/filecoin-project/devgrants/issues/746).
 
-Deployed to [fleek](https://wordle-on-the-block.on.fleek.co/)!
+It was originally built by Team Maxima ([Afoma](https://github.com/Afoma), [Rike](https://github.com/gitfrosh), [Kristen](https://github.com/cuddleofdeath), [Brenda](https://github.com/mejia-b) and [Ana](https://github.com/mspuz) ) during the 2022 [web3con hackathon](https://www.web3con.dev/hackathon).
+
 
 ## Get it started
 ### Frontend
