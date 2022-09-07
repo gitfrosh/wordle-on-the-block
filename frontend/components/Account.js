@@ -1,20 +1,23 @@
-import { useEthers } from "@usedapp/core";
 import { useState } from "react";
 import Login from "./Login";
 import WordleEngine from "./Wordle/WordleEngine";
+import { useAccount, useNetwork } from 'wagmi'
+import { useSession } from 'next-auth/react'
 
+const Account = () => {
+  const { isConnected, address } = useAccount()
+  const { chain } = useNetwork()
+  const { status } = useSession()
 
-const Account = ({ provider, chainAlert }) => {
-  const { active, account } = useEthers();
   const [gameRunning, runGame] = useState(false);
-
+  console.log(chain)
   return (
     <div className="max-w-4xl mx-auto md:px-1 px-3">
-      {account && active ? (
+      {address && isConnected && status === 'authenticated' ? (
         <>
           <div>
             <br />
-            {!gameRunning && !chainAlert ? (
+            {!gameRunning && chain.name === "Rinkeby" ? (
               <p>
                 <button
                   onClick={() => runGame(true)}
@@ -25,7 +28,7 @@ const Account = ({ provider, chainAlert }) => {
                 </button>
               </p>
             ) : (
-              !chainAlert ? <WordleEngine provider={provider} /> : null
+              chain.name === "Rinkeby" ? <WordleEngine /> : null
             )}
           </div>
         </>

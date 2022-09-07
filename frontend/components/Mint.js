@@ -1,27 +1,22 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import fleekStorage from "@fleekhq/fleek-storage-js";
 import { v4 as uuidv4 } from "uuid";
 import html2canvas from "html2canvas";
 import { Buffer } from "buffer";
 import { ethers } from "ethers";
 import contractAbi from "../abi/Maxima.json";
-import { useEthers } from "@usedapp/core";
 import { getGuessStatuses } from "./Wordle/lib/statuses";
 import Charity from "./Charity";
 import moment from "moment";
 import dynamic from "next/dynamic";
+import { useAccount } from 'wagmi'
+
 const Picker = dynamic(
   () => {
     return import("emoji-picker-react");
   },
   { ssr: false }
 );
-// const {
-//   REACT_APP_FLEEK_KEY,
-//   REACT_APP_FLEEK_SECRET,
-//   REACT_APP_OPENSEA_COLLECTION,
-// } = process.env;
-
 const contractAddress = "0x966e792A49B9600cbd4fd377AaB6499B4221A041";
 const donation = ethers.utils.parseEther("0.00001");
 const baseURI = "https://ipfs.fleek.co/ipfs";
@@ -57,7 +52,7 @@ const charities = [
 
 const Mint = ({ provider, guesses, isGameWon }) => {
   const printRef = useRef();
-  const { account } = useEthers();
+  const { address } = useAccount()
   const [charity, setCharity] = useState(charities[0]);
   const [chosenEmoji, setChosenEmoji] = useState();
   const [emojiPickerOpen, toggleEmojiPicker] = useState(false);
@@ -213,7 +208,7 @@ const Mint = ({ provider, guesses, isGameWon }) => {
         </div>
       )}
       <br />
-      {!isMinting && account ? (
+      {!isMinting && address ? (
         <>
           <p>{isGameWon ? <b>Good job! 🚀</b> : <b>Nice try!</b>}</p>
           {emojiPickerOpen ? (

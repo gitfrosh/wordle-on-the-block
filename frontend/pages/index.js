@@ -1,34 +1,13 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import { useEthers } from "@usedapp/core";
-import { useEffect, useState } from "react";
-import { ethers } from "ethers";
+
 import Account from "../components/Account";
+import { useAccount, useNetwork, useProvider } from 'wagmi'
 
 export default function Home() {
-
-  const { account } = useEthers();
-  const [chainAlert, setChainAlert] = useState(false);
-  const [provider, setProvider] = useState();
-
-  useEffect(() => {
-    try {
-      const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
-      setProvider(provider);
-      provider?.on("network", (newNetwork) => {
-        if (newNetwork?.name !== "rinkeby") {
-          setChainAlert(true);
-        } else {
-          setChainAlert(false);
-        }
-      });
-    } catch (e) {
-      console.error(e)
-    }
-  }, []);
-
-
-
+  const provider = useProvider()
+  const { address } = useAccount()
+  const { chain } = useNetwork()
   return (
     <>
       <div className="max-w-5xl pt-32 mx-auto">
@@ -47,7 +26,7 @@ export default function Home() {
             <p>You'll need a wallet to proceed, e.g. Metamask. </p>
           </div>
         ) : null}
-        {chainAlert ? (
+        {chain.name !== "Rinkeby" ? (
           <div
             className=" mb-12 flex items-center bg-[#E63946] text-white text-sm font-bold px-4 py-3"
             role="alert"
@@ -66,7 +45,7 @@ export default function Home() {
         ) : null}
       </div>
       <div className="max-w-5xl pb-24 mx-auto">
-        {!account ? (
+        {!address ? (
           <>
             <h2 className="pt-40 p-10 mb-1 text-2xl font-semibold tracking-tighter text-center text-[#1D3557] lg:text-7xl md:text-6xl">
               The Wordle that gives back!
@@ -81,7 +60,7 @@ export default function Home() {
         {provider && (
           <div className="ml-6 text-center py-3 font-semibold text-black transition duration-500 ease-in-out transform bg-transparent bg-white px-7 text-md md:mt-0 hover:text-black hover:bg-white focus:shadow-outline">
             <div className="flex text-lg">
-              <Account chainAlert={chainAlert} provider={provider} />
+              <Account />
             </div>
           </div>
         )}

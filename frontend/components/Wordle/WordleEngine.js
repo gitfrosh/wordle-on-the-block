@@ -31,13 +31,14 @@ import {
   saveGameStateToLocalStorage,
 } from "./lib/localStorage";
 import { default as GraphemeSplitter } from "grapheme-splitter";
-
+import { useProvider } from 'wagmi'
 import { AlertContainer } from "./components/alerts/AlertContainer";
 import { useAlert } from "./context/AlertContext";
 import { Navbar } from "./components/navbar/Navbar";
 import Countdown from "react-countdown";
 
-function WordleEngine({ provider }) {
+function WordleEngine() {
+  const provider = useProvider()
   const { showError: showErrorAlert, showSuccess: showSuccessAlert } =
     useAlert();
   const [currentGuess, setCurrentGuess] = useState("");
